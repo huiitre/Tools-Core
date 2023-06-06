@@ -11,3 +11,8 @@
 - `composer require symfony/apache-pack`
 - `composer require --dev doctrine/doctrine-fixtures-bundle`
 - `composer require symfony/framework-bundle`
+- `composer require symfony/security-bundle`
+- `composer require symfony/maker-bundle --dev`
+- `sy make:user`
+
+Ajout du JWT

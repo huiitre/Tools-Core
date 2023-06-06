@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * @Route("/test", name="test_")
+ * @Route("/api/test", name="test_")
  */
 class TestController extends AbstractController
 {
