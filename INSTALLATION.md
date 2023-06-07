@@ -14,5 +14,8 @@
 - `composer require symfony/security-bundle`
 - `composer require symfony/maker-bundle --dev`
 - `sy make:user`
+- `sy lexik:jwt:generate-keypair` Installation de openssl avant !
+  https://github.com/lexik/LexikJWTAuthenticationBundle/issues/842
+
 
 Ajout du JWT

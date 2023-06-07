@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -29,6 +28,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var integer
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var integer
+     */
+    private $is_active;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     *
+     * @var string
+     */
+    private $nickname;
 
     /**
      * @var string The hashed password
@@ -123,5 +143,77 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get the value of is_active
+     *
+     * @return  integer
+     */ 
+    public function getIs_active()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * Set the value of is_active
+     *
+     * @param  integer  $is_active
+     *
+     * @return  self
+     */ 
+    public function setIs_active($is_active)
+    {
+        $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nickname
+     *
+     * @return  string
+     */ 
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
+    /**
+     * Set the value of nickname
+     *
+     * @param  string  $nickname
+     *
+     * @return  self
+     */ 
+    public function setNickname(string $nickname)
+    {
+        $this->nickname = $nickname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of type
+     *
+     * @return  integer
+     */ 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @param  integer  $type
+     *
+     * @return  self
+     */ 
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }
