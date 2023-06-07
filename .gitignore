@@ -13,4 +13,4 @@
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
 
-/Database/update_dml.sql
+/src/**/update_dml.sql
