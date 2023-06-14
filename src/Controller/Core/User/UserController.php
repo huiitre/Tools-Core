@@ -25,7 +25,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        dd('User : ', $user);
+        dd('$data : ');
     }
 
     /**

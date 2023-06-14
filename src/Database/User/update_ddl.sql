@@ -1,6 +1,8 @@
-PROMPT "07/06/2023 : Création de la table user"
+CREATE DATABASE IF NOT EXISTS tools_core;
+
+PROMPT "07/06/2023 : Création de la table user et de la BDD si elle n'existe pas"
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `iduser` int NOT NULL AUTO_INCREMENT,
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,

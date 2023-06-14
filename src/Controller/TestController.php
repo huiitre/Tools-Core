@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\Core\User\UserRepository;
+use App\Repository\TestRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,18 +16,27 @@ use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * @Route("/api/test", name="test_")
+ * @Route("/test", name="test_")
  */
 class TestController extends AbstractController
 {
     /**
      * @Route("/index", name="index", methods="GET")
      */
-    public function index()
+    public function index(
+        UserRepository $userRepository
+    )
     {
-        $client = new Client();
+        $data = $userRepository->multipleDatabase();
 
-        try {
+        dd('$data : ', $data);
+
+        // $client = new Client();
+        /* $data = $testRepository->test();
+
+        dd('$data : ', $data); */
+
+        /* try {
             $response = $client->request('GET', 'http://localhost:8080/api/gestion-essence/list?page=2');
             $statusCode = $response->getStatusCode();
 
@@ -57,6 +68,6 @@ class TestController extends AbstractController
             } else {
                 // Gérer d'autres erreurs de requête ici si nécessaire
             }
-        }
+        } */
     }
 }

@@ -19,17 +19,31 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public $cnx;
+    public $tools_core;
+
+    public $tools_test;
 
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
-        $this->cnx = $this->getEntityManager()->getConnection();
+        $this->tools_core = $registry->getConnection();
+        $this->tools_test = $registry->getConnection('tools_test');
+    }
+
+    public function multipleDatabase()
+    {
+        $query1 = $this->tools_core->prepare('select * from user');
+        $data = [...$query1->executeQuery()->fetchAllAssociative()];
+        
+        $query2 = $this->tools_test->prepare('select * from user');
+        $data = [...$data, ...$query2->executeQuery()->fetchAllAssociative()];
+
+        return $data;
     }
 
     public function createUser($user)
     {
-        $cnx = $this->cnx;
+        $tools_core = $this->tools_core;
 
         $sql = "
             CALL CreateUser(
@@ -50,7 +64,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             'roles' => json_encode($user->getRoles())
         ];
 
-        $query = $cnx->prepare($sql);
+        $query = $tools_core->prepare($sql);
         $result = $query->executeStatement($params);
 
         return $result;
@@ -58,10 +72,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findUserBy($array)
     {
-        $cnx = $this->cnx;
+        $tools_core = $this->tools_core;
 
         $sql = "
-            select count(u.id)
+            select count(u.iduser)
             from user u
             where 
         ";
@@ -78,7 +92,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $sql .= implode(' OR ', $conditions);
         }
 
-        $query = $cnx->prepare($sql);
+        $query = $tools_core->prepare($sql);
 
         $result = $query->executeQuery()->fetchOne();
 
